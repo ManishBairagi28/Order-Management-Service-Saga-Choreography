@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.5</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.orderms</groupId>
+    <artifactId>order-management-system</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>Order Management System</name>
+    <description>Microservices Order Management with Saga Pattern</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <spring-boot.version>3.1.5</spring-boot.version>
+        <reactor-kafka.version>1.3.22</reactor-kafka.version>
+        <lombok.version>1.18.30</lombok.version>
+        <jackson.version>2.15.2</jackson.version>
+        <kafka.version>3.5.1</kafka.version>
+        <reactor.version>3.5.10</reactor.version>
+        <reactor-netty.version>1.1.12</reactor-netty.version>
+        <spring-kafka.version>3.0.12</spring-kafka.version>
+        <mongodb-driver.version>4.10.2</mongodb-driver.version>
+        <testcontainers.version>1.19.1</testcontainers.version>
+        <embed.mongo.version>4.9.2</embed.mongo.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>shared-events</module>
+        <module>order-service</module>
+        <module>payment-service</module>
+        <module>inventory-service</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Internal Dependencies -->
+            <dependency>
+                <groupId>com.orderms</groupId>
+                <artifactId>shared-events</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Spring Boot BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Project Reactor BOM -->
+            <dependency>
+                <groupId>io.projectreactor</groupId>
+                <artifactId>reactor-core</artifactId>
+                <version>${reactor.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Reactor Kafka -->
+            <dependency>
+                <groupId>io.projectreactor.kafka</groupId>
+                <artifactId>reactor-kafka</artifactId>
+                <version>${reactor-kafka.version}</version>
+            </dependency>
+
+            <!-- Reactor Netty -->
+            <dependency>
+                <groupId>io.projectreactor.netty</groupId>
+                <artifactId>reactor-netty</artifactId>
+                <version>${reactor-netty.version}</version>
+            </dependency>
+
+            <!-- Apache Kafka -->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka_2.13</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+
+            <!-- Spring Kafka -->
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka-test</artifactId>
+                <version>${spring-kafka.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- MongoDB Driver -->
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongodb-driver-core</artifactId>
+                <version>${mongodb-driver.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongodb-driver-reactivestreams</artifactId>
+                <version>${mongodb-driver.version}</version>
+            </dependency>
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Reactive Streams -->
+            <dependency>
+                <groupId>org.reactivestreams</groupId>
+                <artifactId>reactive-streams</artifactId>
+                <version>1.0.4</version>
+            </dependency>
+
+            <!-- Test Dependencies -->
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>de.flapdoodle.embed</groupId>
+                <artifactId>de.flapdoodle.embed.mongo.spring3x</artifactId>
+                <version>4.21.0</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.11.0</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>UTF-8</encoding>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.1.2</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.1.2</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.6.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

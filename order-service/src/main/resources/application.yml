@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: order-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: order-service-db
+      username: admin
+      password: password
+      authentication-database: admin
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: order-service-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    producer:
+      acks: all
+      retries: 3
+      properties:
+        enable.idempotence: true
+
+kafka:
+  topics:
+    order-events: order-events
+    payment-events: payment-events
+    inventory-events: inventory-events
+
+logging:
+  level:
+    com.orderms: DEBUG
+    reactor.kafka: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

@@ -1,0 +1,37 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: payment-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: payment-service-db
+      username: admin
+      password: password
+      authentication-database: admin
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: payment-service-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    producer:
+      acks: all
+      retries: 3
+      properties:
+        enable.idempotence: true
+
+kafka:
+  topics:
+    order-events: order-events
+    payment-events: payment-events
+
+logging:
+  level:
+    com.orderms: DEBUG
+    reactor.kafka: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
